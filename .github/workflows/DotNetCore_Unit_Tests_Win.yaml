@@ -17,39 +17,39 @@ jobs:
     name: build-and-test-windows
     runs-on: windows-latest
     steps:
-    - name: Clone webprofusion/certify
+    - name: Clone theplagu3/certify
       uses: actions/checkout@v4
       with:
         path: ./certify
 
-    - name: Clone webprofusion/anvil
+    - name: Clone theplagu3/anvil
       uses: actions/checkout@v4
       with:
-        repository: webprofusion/anvil
+        repository: theplagu3/anvil
         ref: refs/heads/main
         path: ./libs/anvil
 
-    - name: Clone webprofusion/certify-plugins (development branch push)
+    - name: Clone theplagu3/certify-plugins (development branch push)
       if: ${{ github.event_name == 'push' && (contains(github.ref_name, '_dev') || github.ref_name == 'development') }}
       uses: actions/checkout@v4
       with:
-        repository: webprofusion/certify-plugins
+        repository: theplagu3/certify-plugins
         ref: refs/heads/development    
         path: ./certify-plugins
 
-    - name: Clone webprofusion/certify-plugins (release branch push)
+    - name: Clone theplagu3/certify-plugins (release branch push)
       if: ${{ github.event_name == 'push' && (contains(github.ref_name, '_rel') || github.ref_name == 'release') }}
       uses: actions/checkout@v4
       with:
-        repository: webprofusion/certify-plugins
+        repository: theplagu3/certify-plugins
         ref: refs/heads/release    
         path: ./certify-plugins
 
-    - name: Clone webprofusion/certify-plugins (pull request)
+    - name: Clone theplagu3/certify-plugins (pull request)
       if: ${{ github.event_name == 'pull_request' }}
       uses: actions/checkout@v4
       with:
-        repository: webprofusion/certify-plugins
+        repository: theplagu3/certify-plugins
         ref: ${{ github.base_ref }}    
         path: ./certify-plugins
 
@@ -65,7 +65,7 @@ jobs:
         echo "C:\Program Files\step_0.24.4\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
     - name: Pull step-ca Docker Image
-      run: docker pull webprofusion/step-ca-win
+      run: docker pull theplagu3/step-ca-win
 
     - name: Cache NuGet Dependencies    
       uses: actions/cache@v3
